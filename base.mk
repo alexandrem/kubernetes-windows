@@ -36,5 +36,5 @@ pwsh-enter: ssh_config_libvirt
 
 .PHONY: test
 sync-dev:
-	$(shell ../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(LOCAL_K8S_DEV))
+	$(shell ../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_K8S_DEV))
 	@true
