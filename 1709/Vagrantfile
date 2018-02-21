@@ -1,5 +1,4 @@
 Vagrant.configure(2) do |config|
-  # config.vm.box = 'windows-server-core-1709-amd64-lv'
   config.vm.box = 'windows-server-core-1709'
 
   config.vm.hostname = 'kubelet01'
