@@ -15,6 +15,14 @@ endef
 
 export ssh_libvirt
 
+.PHONY: up
+up:
+	vagrant up --provider libvirt
+
+.PHONY: destroy
+destroy:
+	vagrant destroy -f
+
 .PHONY: ssh_config_libvirt
 ssh_config_libvirt:
 	@egrep "^# vagrant libvirt powershell" $(SSH_CONFIG) &>/dev/null || echo "$$ssh_libvirt" >> $(SSH_CONFIG)
