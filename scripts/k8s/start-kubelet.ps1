@@ -189,7 +189,7 @@ if (-not $podCidrDiscovered)
 }
 
 # startup the service
-ipmo C:\k\scripts\hns.psm1
+ipmo C:\k\hns.psm1
 $hnsNetwork = Get-HnsNetworks | ? Name -EQ $NetworkMode.ToLower()
 
 if (!$hnsNetwork)
