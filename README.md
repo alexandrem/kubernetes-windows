@@ -9,7 +9,7 @@ We deploy all components in virtual environments from prebuilt Windows server co
 
 ## Setup
 
-## Requirements
+### Requirements
 
 - libvirt
 - powershell core v6
@@ -64,7 +64,7 @@ make pwsh-enter
 
 ## Installing powershell core
 
-To work from a linux or MacOS machine effectively you need to install powershell core v6.
+To work from a linux or MacOS machine efficiently you need to install powershell core v6.
 
 Windows images should have the proper Win32-OpenSSH setup in place to allow remoting from powershell+ssh.
 
