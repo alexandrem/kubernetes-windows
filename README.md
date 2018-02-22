@@ -2,7 +2,7 @@
 
 Purpose of this project is to layout the minimal configuration and system dependencies to get Windows nodes join a Kubernetes cluster successfully in an on-premise deployment.
 
-The setup suggest having the latest bleeding edge dependencies to ensure most compliant and featureful Kubernetes experience.
+The setup assumes having the latest bleeding edge dependencies installed (e.g Windows releases, KBs, online features, docker version, etc) to ensure the most compliant and featureful Kubernetes experience.
 
 We deploy all components in virtual environments from prebuilt Windows server core images.
 
