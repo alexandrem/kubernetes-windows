@@ -169,7 +169,7 @@ $podCidrDiscovered = Test-PodCIDR $podCIDR
 # if the podCIDR has not yet been assigned to this node, start the kubelet process to get the podCIDR, and then promptly kill it.
 if (-not $podCidrDiscovered)
 {
-    $argList = @("--hostname-override=$(hostname)","--pod-infra-container-image=kubeletwin/pause","--resolv-conf=""""", "--kubeconfig=c:\k\kubeconfig")
+    $argList = @("--hostname-override=$(hostname)","--pod-infra-container-image=polykube/kubeletwin-pause:1709","--resolv-conf=""""", "--kubeconfig=c:\k\kubeconfig")
 
     $process = Start-Process -FilePath c:\k\kubelet.exe -PassThru -ArgumentList $argList
 
@@ -210,7 +210,7 @@ Start-Sleep 10
 Update-CNIConfig $podCIDR
 
 c:\k\kubelet.exe --hostname-override=$(hostname) --v=6 `
-    --pod-infra-container-image=kubeletwin/pause --resolv-conf="" `
+    --pod-infra-container-image=polykube/kubeletwin-pause:1709 --resolv-conf="" `
     --allow-privileged=true --enable-debugging-handlers `
     --cluster-dns=$KubeDnsServiceIp --cluster-domain=cluster.local `
     --kubeconfig=c:\k\kubeconfig --hairpin-mode=promiscuous-bridge `
