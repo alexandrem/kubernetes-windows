@@ -59,7 +59,7 @@ Works from linux and MacOS.
 Using the `make` shortcut:
 
 ```bash
-make pwsh-enter
+make ps-enter
 ```
 
 ## Installing powershell core
