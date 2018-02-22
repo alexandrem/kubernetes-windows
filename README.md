@@ -8,10 +8,34 @@ Expected vagrant box names:
 | ---- | ------------------------- |
 | 1709 | windows-server-core-1709
 
+# Setup
+
+## Requirements
+
+- libvirt
+- powershell core v6
+
+## Prep steps
+
+Load the new libvirt network definition in order to not clash with the kubelet 192.168 default range.
+
+```bash
+make setup
+```
+
+NOTE: change the values if you need something different in your environment.
+
+
+## About virtualbox
+
+Right now virtualbox is not a good virtual environment or Kubernetes Windows because kubelet cannot read the physical memory correctly (winstats perf counters).
+
+
 # Usage
 
 ```bash
-vagrant up --provider libvirt
+cd 1709
+make up
 ```
 
 ## Remote powershell to vagrant windows instances
