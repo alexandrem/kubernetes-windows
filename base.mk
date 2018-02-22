@@ -37,7 +37,7 @@ pwsh-enter: ssh_config_libvirt
 	echo "enter-pssession -Hostname $$ip -Username vagrant -KeyFilePath $(VAGRANT_KEY)"; \
 	TERM=xterm pwsh
 
-.PHONY: test
+.PHONY: sync-dev
 sync-dev:
 	../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_K8S_DEV) $(REMOTE_K8S)
 	../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_DOCKER_DEV) $(REMOTE_DOCKER)
