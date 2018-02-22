@@ -4,6 +4,9 @@ VAGRANT_KEY = ~/.vagrant.d/insecure_private_key
 SSH_CONFIG ?= ~/.ssh/config
 LIBVIRT_IPAM ?= 192.168.121.*
 LOCAL_K8S_DEV := ../scripts/k8s
+LOCAL_DOCKER_DEV := ../scripts/docker
+REMOTE_K8S := "c:\\k"
+REMOTE_DOCKER := "c:\\docker"
 
 define ssh_libvirt
 
@@ -36,5 +39,5 @@ pwsh-enter: ssh_config_libvirt
 
 .PHONY: test
 sync-dev:
-	$(shell ../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_K8S_DEV))
-	@true
+	../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_K8S_DEV) $(REMOTE_K8S)
+	../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_DOCKER_DEV) $(REMOTE_DOCKER)
