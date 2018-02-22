@@ -30,8 +30,8 @@ destroy:
 ssh_config_libvirt:
 	@egrep "^# vagrant libvirt powershell" $(SSH_CONFIG) &>/dev/null || echo "$$ssh_libvirt" >> $(SSH_CONFIG)
 
-.PHONY: pwsh-enter
-pwsh-enter: ssh_config_libvirt
+.PHONY: ps-enter
+ps-enter: ssh_config_libvirt
 	# Copy the enter-pssession command in your pwsh terminal
 	@ip=$$(sudo virsh domifaddr $(DOMAIN) vnet0 | grep vnet0 | awk '{print $$4}' | cut -d/ -f1); \
 	echo "enter-pssession -Hostname $$ip -Username vagrant -KeyFilePath $(VAGRANT_KEY)"; \
