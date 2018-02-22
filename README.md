@@ -1,4 +1,21 @@
-# Requirements
+# Kubernetes on Windows
+
+Purpose of this project is to layout the minimal configuration and system dependencies to get Windows nodes join a Kubernetes cluster successfully in an on-premise deployment.
+
+The setup suggest having the latest bleeding edge dependencies to ensure most compliant and featureful Kubernetes experience.
+
+We deploy all components in virtual environments from prebuilt Windows server core images.
+
+
+## Setup
+
+## Requirements
+
+- libvirt
+- powershell core v6
+- windows server core 1709 images
+
+### Images
 
 This assumes you have built compatible Windows server core images via https://github.com/alexandrem/windows-server-core-k8s
 
@@ -8,14 +25,7 @@ Expected vagrant box names:
 | ---- | ------------------------- |
 | 1709 | windows-server-core-1709
 
-# Setup
-
-## Requirements
-
-- libvirt
-- powershell core v6
-
-## Prep steps
+### Prep steps
 
 Load the new libvirt network definition in order to not clash with the kubelet 192.168 default range.
 
@@ -26,19 +36,21 @@ make setup
 NOTE: change the values if you need something different in your environment.
 
 
-## About virtualbox
+### About virtualbox
 
-Right now virtualbox is not a good virtual environment or Kubernetes Windows because kubelet cannot read the physical memory correctly (winstats perf counters).
+Right now virtualbox is not a good virtual environment for Kubernetes Windows because kubelet cannot read the physical memory correctly (winstats perf counters).
+
+TODO: add kubelet error messages and create upstream issue.
 
 
-# Usage
+## Usage
 
 ```bash
 cd 1709
 make up
 ```
 
-## Remote powershell to vagrant windows instances
+### Remote powershell to vagrant windows instances
 
 This requires having the latest powershell core 6.x installed.
 
@@ -50,6 +62,10 @@ Using the `make` shortcut:
 make pwsh-enter
 ```
 
-# Installing powershell core
+## Installing powershell core
+
+To work from a linux or MacOS machine effectively you need to install powershell core v6.
+
+Windows images should have the proper Win32-OpenSSH setup in place to allow remoting from powershell+ssh.
 
 TBD
