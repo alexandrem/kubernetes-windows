@@ -1,4 +1,10 @@
-$KubeDnsServiceIp="192.168.0.10"
+Param(
+    # Todo : Get these values using kubectl
+    [string] $clusterCIDR="192.168.0.0/16",
+    [string] $KubeDnsServiceIp="11.0.0.10",
+    [string] $serviceCIDR="11.0.0.0/8"
+)
+
 $pauseImage = "polykube/kubeletwin-pause:1709"
 
 c:\k\kubelet.exe --hostname-override=$(hostname) --v=6 `

@@ -1,8 +1,8 @@
 Param(
     # Todo : Get these values using kubectl
-    $clusterCIDR="192.168.0.0/16",
-    $KubeDnsServiceIp="11.0.0.10",
-    $serviceCIDR="11.0.0.0/8"
+    [string] $clusterCIDR="192.168.0.0/16",
+    [string] $KubeDnsServiceIp="11.0.0.10",
+    [string] $serviceCIDR="11.0.0.0/8"
 )
 
 $WorkingDir = "c:\k"
