@@ -69,3 +69,19 @@ To work from a linux or MacOS machine efficiently you need to install powershell
 Windows images should have the proper Win32-OpenSSH setup in place to allow remoting from powershell+ssh.
 
 TBD
+
+# Troubleshoot host environment
+
+Troubleshoot host setup to make kubelet networking functional.
+
+This shouldn't return any errors:
+
+```powershell
+powershell.exe -c "iwr https://aka.ms/Debug-ContainerHost.ps1 -useb | iex"
+
+powershell.exe -c "Get-WindowsFeature *hyper-v*"
+Get-NetAdapter
+Get-VM
+Get-VMSwitch
+Get-NetCompartment
+```
