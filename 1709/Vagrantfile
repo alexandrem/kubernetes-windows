@@ -15,7 +15,7 @@ Vagrant.configure(2) do |config|
     lv.nested = true
     lv.cpu_mode = "host-model"
     lv.management_network_name = "vagrant-libvirt-k8s"
-    lv.management_network_address = "172.16.121.0/24"
+    lv.management_network_address = "192.168.0.0/16"
     config.vm.synced_folder '.', '/vagrant', disabled: true
   end
 
