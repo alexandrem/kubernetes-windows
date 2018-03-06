@@ -5,10 +5,8 @@ SSH_CONFIG ?= ~/.ssh/config
 LIBVIRT_IPAM ?= 192.168.121.*
 LOCAL_K8S_DEV := ../scripts/k8s
 LOCAL_DOCKER_DEV := ../scripts/docker
-LOCAL_UTILS_DEV := ../scripts/utils
 REMOTE_K8S := "c:\\k"
 REMOTE_DOCKER := "c:\\docker"
-REMOTE_UTILS := "c:\\utils"
 
 define ssh_libvirt
 
@@ -42,5 +40,4 @@ ps-enter: ssh_config_libvirt
 .PHONY: sync-dev
 sync-dev:
 	../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_K8S_DEV) $(REMOTE_K8S)
-	../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_UTILS_DEV) $(REMOTE_UTILS)
 	../scripts/rsync.sh vagrant $(VAGRANT_KEY) $(DOMAIN) $(LOCAL_DOCKER_DEV) $(REMOTE_DOCKER)
