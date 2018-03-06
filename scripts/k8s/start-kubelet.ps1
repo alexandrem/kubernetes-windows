@@ -1,10 +1,9 @@
 Param(
-    $clusterCIDR="192.168.0.0/16"
+    # Todo : Get these values using kubectl
+    $clusterCIDR="192.168.0.0/16",
+    $KubeDnsServiceIp="11.0.0.10",
+    $serviceCIDR="11.0.0.0/8"
 )
-
-# Todo : Get these values using kubectl
-$KubeDnsServiceIp="11.0.0.10"
-$serviceCIDR="11.0.0.0/8"
 
 $WorkingDir = "c:\k"
 $CNIPath = [Io.path]::Combine($WorkingDir , "cni")
@@ -13,6 +12,8 @@ $CNIConfig = [Io.path]::Combine($CNIPath, "config", "$NetworkMode.conf")
 
 $endpointName = "cbr0"
 $vnicName = "vEthernet ($endpointName)"
+
+$pauseImage = "polykube/kubeletwin-pause:1709"
 
 function
 Get-PodGateway($podCIDR)
@@ -31,7 +32,7 @@ Get-PodEndpointGateway($podCIDR)
 function
 Get-PodCIDR()
 {
-    $podCIDR=c:\k\kubectl.exe --kubeconfig=c:\k\kubeconfig get nodes/$($(hostname).ToLower()) -o custom-columns=podCidr:.spec.podCIDR --no-headers
+    $podCIDR=c:\k\kubectl.exe --kubeconfig=c:\k\config get nodes/$($(hostname).ToLower()) -o custom-columns=podCidr:.spec.podCIDR --no-headers
     return $podCIDR
 }
 
@@ -169,7 +170,7 @@ $podCidrDiscovered = Test-PodCIDR $podCIDR
 # if the podCIDR has not yet been assigned to this node, start the kubelet process to get the podCIDR, and then promptly kill it.
 if (-not $podCidrDiscovered)
 {
-    $argList = @("--hostname-override=$(hostname)","--pod-infra-container-image=polykube/kubeletwin-pause:1709","--resolv-conf=""""", "--kubeconfig=c:\k\kubeconfig")
+    $argList = @("--hostname-override=$(hostname)","--pod-infra-container-image=$pauseImage","--resolv-conf=""""", "--kubeconfig=c:\k\config")
 
     $process = Start-Process -FilePath c:\k\kubelet.exe -PassThru -ArgumentList $argList
 
@@ -210,10 +211,10 @@ Start-Sleep 10
 Update-CNIConfig $podCIDR
 
 c:\k\kubelet.exe --hostname-override=$(hostname) --v=6 `
-    --pod-infra-container-image=polykube/kubeletwin-pause:1709 --resolv-conf="" `
+    --pod-infra-container-image=$pauseImage --resolv-conf="" `
     --allow-privileged=true --enable-debugging-handlers `
     --cluster-dns=$KubeDnsServiceIp --cluster-domain=cluster.local `
-    --kubeconfig=c:\k\kubeconfig --hairpin-mode=promiscuous-bridge `
+    --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge `
     --image-pull-progress-deadline=20m --cgroups-per-qos=false `
     --enforce-node-allocatable="" `
     --network-plugin=cni --cni-bin-dir="c:\k\cni" --cni-conf-dir "c:\k\cni\config"
