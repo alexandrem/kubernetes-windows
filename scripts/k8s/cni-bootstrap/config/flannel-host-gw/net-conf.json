@@ -1,0 +1,7 @@
+{
+    "Network": "192.168.128.0/17",
+    "Backend": {
+        "name": "cbr0",
+        "type": "host-gw"
+    }
+}
